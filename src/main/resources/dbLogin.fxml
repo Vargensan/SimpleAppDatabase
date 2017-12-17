@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.SepiaTone?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ctrl.LoginController.LoginController">
+   <children>
+      <ImageView fitHeight="450.0" fitWidth="300.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@rlv.png" />
+         </image>
+         <effect>
+            <SepiaTone />
+         </effect>
+      </ImageView>
+      <Button fx:id="submit" layoutX="150.0" layoutY="184.0" mnemonicParsing="false" opacity="0.7" prefHeight="25.0" prefWidth="137.0" text="Login" textAlignment="CENTER" textFill="#e11414">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+            </Lighting>
+         </effect>
+         <opaqueInsets>
+            <Insets bottom="22.0" left="22.0" right="22.0" top="22.0" />
+         </opaqueInsets>
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <TextField fx:id="errorMessage" alignment="CENTER" editable="false" layoutX="32.0" layoutY="328.0" opacity="0.7" prefHeight="69.0" prefWidth="237.0" promptText="Error Message">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+            </Lighting>
+         </effect>
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <VBox layoutX="108.0" layoutY="61.0" prefHeight="123.0" prefWidth="178.0">
+         <children>
+            <Label layoutX="47.0" layoutY="175.0" prefHeight="25.0" prefWidth="178.0" text="Login" textFill="#a683ff">
+               <font>
+                  <Font name="Verdana" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="login" layoutX="47.0" layoutY="200.0" prefHeight="25.0" prefWidth="178.0" />
+            <Label layoutX="47.0" layoutY="225.0" prefHeight="25.0" prefWidth="178.0" text="Password" textFill="#a683ff">
+               <font>
+                  <Font name="Verdana" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="password" layoutX="47.0" layoutY="251.0" prefHeight="25.0" prefWidth="178.0" />
+         </children>
+         <effect>
+            <Lighting diffuseConstant="1.23" specularConstant="0.46" specularExponent="33.02" surfaceScale="2.55">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+            </Lighting>
+         </effect>
+      </VBox>
+   </children>
+</AnchorPane>

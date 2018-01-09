@@ -26,7 +26,3 @@ sourceSets.main {
         exclude "**/*.java"
     }
 }
-
-task showMeCache << {
-    configurations.compile.each { println it }
-}

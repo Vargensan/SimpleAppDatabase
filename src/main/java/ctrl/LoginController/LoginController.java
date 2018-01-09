@@ -1,18 +1,16 @@
 package ctrl.LoginController;
 
-import Seciourity.Validation;
-import beans.LoginUser;
+import logic.DatabaseApplication;
+import logic.seciourity.Validation;
+import data.model.LoginUser;
 import ctrl.Controller;
 import ctrl.Error.ErrorMessages;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import logic.ChangeRoot;
-import logic.MainApplication;
-import maping.Selection;
-
-import javax.persistence.NoResultException;
+import data.maping.Selection;
+import usergui.utils.ViewInstance;
 
 /**
  * Created By Bartłomiej Woś
@@ -20,7 +18,7 @@ import javax.persistence.NoResultException;
 public class LoginController extends Controller {
 
 
-    MainApplication mainApplication;
+    DatabaseApplication databaseApplication;
     @FXML
     public TextField errorMessage;
     @FXML
@@ -36,8 +34,8 @@ public class LoginController extends Controller {
 
     }
 
-    public LoginController(MainApplication mainApplication){
-        this.mainApplication = mainApplication;
+    public LoginController(DatabaseApplication databaseApplication){
+        this.databaseApplication = databaseApplication;
         addListeners();
     }
 
@@ -64,7 +62,7 @@ public class LoginController extends Controller {
         if(loginUser !=  null) {
             boolean isCorrect = Validation.isPasswordCorrect(passwordText, loginUser.getUserPassword());
             if (isCorrect) {
-                ChangeRoot.changeLayoutLevelAccess();
+                ChangeRoot.changeLayoutLevelAccess(ViewInstance.MAIN_VIEW);
             } else {
                 ErrorMessages.setErrorMessage("Invalid Password!");
                 ErrorMessages.throwErrorMessage(this);

@@ -1,10 +1,10 @@
-package ctrl.LoginController;
+package logic.ctrl.LoginController;
 
-import logic.DatabaseApplication;
+import logic.DBApp;
 import logic.seciourity.Validation;
-import data.model.LoginUser;
-import ctrl.Controller;
-import ctrl.Error.ErrorMessages;
+import data.model.User;
+import logic.ctrl.Controller;
+import logic.ctrl.Error.ErrorMessages;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -18,7 +18,6 @@ import usergui.utils.ViewInstance;
 public class LoginController extends Controller {
 
 
-    DatabaseApplication databaseApplication;
     @FXML
     public TextField errorMessage;
     @FXML
@@ -28,18 +27,17 @@ public class LoginController extends Controller {
     @FXML
     public TextField password;
 
-
-
     public LoginController(){
-
+      //  addListeners();
     }
 
-    public LoginController(DatabaseApplication databaseApplication){
-        this.databaseApplication = databaseApplication;
-        addListeners();
-    }
+ //   public void initialize(){
+ //       addListeners();
+  //  }
 
-    public void initialize(){
+
+    @Override
+    public void initializeListeners() {
         addListeners();
     }
 
@@ -48,7 +46,6 @@ public class LoginController extends Controller {
                 System.out.println("ok");
                 String loginText;
                 String passwordText;
-
                 loginText = login.getText();
                 passwordText = password.getText();
                 tryToLogin(loginText, passwordText);
@@ -56,26 +53,20 @@ public class LoginController extends Controller {
             });
     }
 
-    public void tryToLogin(String loginText, String passwordText){
-        LoginUser loginUser;
-        loginUser = Selection.getUserByLogin(loginText);
-        if(loginUser !=  null) {
-            boolean isCorrect = Validation.isPasswordCorrect(passwordText, loginUser.getUserPassword());
-            if (isCorrect) {
+    private void tryToLogin(String loginText, String passwordText){
+        try {
+            if (Validation.isPasswordCorrect(passwordText,Selection.getUserByLogin(loginText).getUserPassword())) {
                 ChangeRoot.changeLayoutLevelAccess(ViewInstance.MAIN_VIEW);
             } else {
-                ErrorMessages.setErrorMessage("Invalid Password!");
-                ErrorMessages.throwErrorMessage(this);
+                ErrorMessages.setAndThrowMessage("Invalid Password!");
             }
-        }else{
-            ErrorMessages.setErrorMessage("User Does Not Exist!");
-            ErrorMessages.throwErrorMessage(this);
-
+        }catch(NullPointerException e){
+            ErrorMessages.setAndThrowMessage("Exception: User Does Not Exist!");
         }
     }
 
     @Override
-    public void ThrowErrorMessage(String ErrorMessage) {
+    public void throwErrorMessage(String ErrorMessage) {
         errorMessage.setText(ErrorMessage);
     }
 }

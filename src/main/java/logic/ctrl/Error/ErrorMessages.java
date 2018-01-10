@@ -1,6 +1,7 @@
-package ctrl.Error;
+package logic.ctrl.Error;
 
-import ctrl.Controller;
+import logic.DBApp;
+import logic.ctrl.Controller;
 
 /**
  * Created By Bartłomiej Woś
@@ -24,12 +25,13 @@ public class ErrorMessages {
         ErrorMessages.errorMessage = errorMessage;
     }
 
-    public static void setAndThrowMessage(String errorMessage,Controller controller){
-        ErrorMessages.errorMessage = errorMessage;
-        controller.ThrowErrorMessage(errorMessage);
-    }
-
-    public static void throwErrorMessage(Controller controller){
-        controller.ThrowErrorMessage(errorMessage);
+    public static void setAndThrowMessage(String errorMessage){
+        if(DBApp.instance().getActualController() != null) {
+            ErrorMessages.errorMessage = errorMessage;
+            DBApp.instance().getActualController().throwErrorMessage(errorMessage);
+            //controller.throwErrorMessage(errorMessage);
+        }else{
+            System.out.println(errorMessage);
+        }
     }
 }

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="data.model.Receipt" table="Receipt">
+        <id name="paragonID" type="java.lang.Integer">
+            <column name="paragonID"/>
+            <generator class="native"/>
+        </id>
+
+        <many-to-one name="worker" class="data.model.Worker" column="recipentID"/>
+        <many-to-one name="cashRegister" class="data.model.CashRegister" column="cashID"/>
+
+
+    </class>
+
+</hibernate-mapping>

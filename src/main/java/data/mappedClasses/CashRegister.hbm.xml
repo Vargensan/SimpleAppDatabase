@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="data.model.CashRegister" table="CashRegister">
+        <id name="cashID" type="java.lang.Integer">
+            <column name="cashID"/>
+            <generator class="native"/>
+        </id>
+
+        <property name="productionDate" type="java.util.Date">
+            <column name="productionDate"/>
+        </property>
+        <property name="money" type="java.lang.Integer">
+            <column name="actualMoney"/>
+        </property>
+    </class>
+
+</hibernate-mapping>

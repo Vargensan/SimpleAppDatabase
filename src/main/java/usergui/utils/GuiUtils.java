@@ -7,7 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
-import logic.DatabaseApplication;
+import logic.DBApp;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -34,7 +34,7 @@ public class GuiUtils
 		alert.setTitle(title);
 		alert.setHeaderText(header);
 		alert.setContentText(text);
-		alert.initOwner(DatabaseApplication.getStage());
+		alert.initOwner(DBApp.instance().getStage());
 		alert.showAndWait();
 	}
 
@@ -44,7 +44,7 @@ public class GuiUtils
 		alert.setTitle(title);
 		alert.setHeaderText(header);
 		alert.setContentText(text);
-		alert.initOwner(DatabaseApplication.getStage());
+		alert.initOwner(DBApp.instance().getStage());
 		alert.initModality(Modality.APPLICATION_MODAL);
 
 		StringWriter sw = new StringWriter();

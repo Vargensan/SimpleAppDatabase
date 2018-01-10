@@ -1,19 +1,49 @@
 package data.model;
 
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import logic.Database;
 
-/**
- * Created By Bartłomiej Woś
- */
-public class Worker {
+import java.io.Serializable;
+import java.util.Date;
+
+public class Worker implements Serializable{
+
+    private StringProperty personalID;
 
     private StringProperty name;
     private StringProperty surname;
-    private StringProperty PESEL;
-    private StringProperty ID;
+    private StringProperty position;
+    private Date birthDate;
 
-    private IntegerProperty age;
+    public Worker(){
+        personalID = new SimpleStringProperty();
+        name = new SimpleStringProperty();
+        surname = new SimpleStringProperty();
+        position = new SimpleStringProperty();
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public String getPersonalID() {
+        return personalID.get();
+    }
+
+    public StringProperty personalIDProperty() {
+        return personalID;
+    }
+
+    public void setPersonalID(String personalID) {
+        this.personalID.set(personalID);
+    }
 
     public String getName() {
         return name.get();
@@ -39,39 +69,15 @@ public class Worker {
         this.surname.set(surname);
     }
 
-    public String getPESEL() {
-        return PESEL.get();
+    public String getPosition() {
+        return position.get();
     }
 
-    public StringProperty PESELProperty() {
-        return PESEL;
+    public StringProperty positionProperty() {
+        return position;
     }
 
-    public void setPESEL(String PESEL) {
-        this.PESEL.set(PESEL);
-    }
-
-    public String getID() {
-        return ID.get();
-    }
-
-    public StringProperty IDProperty() {
-        return ID;
-    }
-
-    public void setID(String ID) {
-        this.ID.set(ID);
-    }
-
-    public int getAge() {
-        return age.get();
-    }
-
-    public IntegerProperty ageProperty() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age.set(age);
+    public void setPosition(String position) {
+        this.position.set(position);
     }
 }

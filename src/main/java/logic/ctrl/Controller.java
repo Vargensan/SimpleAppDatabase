@@ -1,4 +1,4 @@
-package ctrl;
+package logic.ctrl;
 
 import javafx.stage.Stage;
 
@@ -21,5 +21,9 @@ public abstract class Controller {
         this.mainStage = mainStage;
     }
 
-    public abstract void ThrowErrorMessage(String ErrorMessage);
+    public void throwErrorMessage(String ErrorMessage){
+        System.out.println(ErrorMessage);
+    }
+
+    public abstract void initializeListeners();
 }

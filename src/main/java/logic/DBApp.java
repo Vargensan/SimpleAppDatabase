@@ -5,15 +5,18 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import data.maping.Selection;
 import data.maping.UserMapping;
+import logic.ctrl.Controller;
 
 /**
  * Created By Bartłomiej Woś
  */
-public class DatabaseApplication extends Application{
+public class DBApp extends Application{
 
-    private static DatabaseApplication DATABASEApplication;
+    private static DBApp DBApp;
     private Stage stage;
     private Database database;
+    private Controller actualController;
+
 
     private HibConfig hibConfig;
 
@@ -21,8 +24,10 @@ public class DatabaseApplication extends Application{
         launch(args);
     }
 
-    public DatabaseApplication(){
-        DATABASEApplication = this;
+    public DBApp(){
+        if(DBApp == null) {
+            DBApp = this;
+        }
     }
 
     @Override
@@ -33,8 +38,10 @@ public class DatabaseApplication extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        DATABASEApplication.stage = primaryStage;
+
+        instance().stage = primaryStage;
         showLoginLayout();
+        database.test();
     }
 
     public void showLoginLayout(){
@@ -46,20 +53,21 @@ public class DatabaseApplication extends Application{
         super.stop();
     }
 
-    public void test(){
-        UserMapping.addUser("agata","1q2w3e4r");
-        Selection.listUsers();
-    }
-
-    public static DatabaseApplication instance()
+    public static DBApp instance()
     {
-        return DATABASEApplication;
+        return DBApp;
     }
 
     public Database getDatabase() { return database; }
 
-    public static Stage getStage() {return DATABASEApplication.stage; }
+    public Stage getStage() {return DBApp.stage; }
 
 
+    public Controller getActualController() {
+        return actualController;
+    }
 
+    public void setActualController(Controller actualController) {
+        this.actualController = actualController;
+    }
 }

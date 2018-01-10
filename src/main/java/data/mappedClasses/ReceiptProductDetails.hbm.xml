@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="data.model.ReceiptProductDetails" table="receiptproductdetails">
+        <id name="uniqueID" type="java.lang.Integer">
+            <column name="uniqueID"/>
+            <generator class="native"/>
+        </id>
+        <many-to-one name="product" class="data.model.Product"
+                     column="product"/>
+
+        <many-to-one name="receipt" class="data.model.Receipt"
+                     column="paragonID"/>
+
+    </class>
+
+</hibernate-mapping>

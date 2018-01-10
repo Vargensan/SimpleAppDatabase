@@ -1,7 +1,11 @@
 package data.maping;
 
-import data.model.LoginUser;
+import data.model.User;
 import data.config.HibConfig;
+import data.model.Worker;
+import logic.DBApp;
+import logic.ctrl.Error.ErrorMessages;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,36 +21,68 @@ import java.util.List;
 public class Selection {
 
     public static List listUsers(){
-        String query = "FROM LoginUsers";
         Session session = HibConfig.getOpenSession();
         Transaction tx;
 
         tx = session.beginTransaction();
-        List users = session.createQuery("FROM LoginUser").list();
+        List users = session.createQuery("FROM User ").list();
         for (Iterator iterator = users.iterator(); iterator.hasNext();){
-            LoginUser employee = (LoginUser) iterator.next();
-            System.out.print("First Name: " + employee.getId());
-            System.out.print("  Last Name: " + employee.getUserName());
-            System.out.println("  Salary: " + employee.getUserPassword());
+            User employee = (User) iterator.next();
+            System.out.print("id: " + employee.getId());
+            System.out.print("  login: " + employee.getUserName());
+            System.out.println("  password: " + employee.getUserPassword());
         }
         tx.commit();
         session.close();
         return users;
     }
 
-    public static LoginUser getUserByLogin(String login) throws NoResultException{
-        LoginUser loginUser = null;
-        String queryString = "from LoginUser where userName = :userCall";
+    public static User getUserByLogin(String login) throws NoResultException{
+        User user = null;
         try (Session session = HibConfig.getOpenSession()) {
             try {
-                Query query = session.createQuery(queryString).setParameter("userCall", login);
-                loginUser = (LoginUser) query.getSingleResult();
+                Query query = session.createQuery("from User where userName = :username");
+                query.setParameter("username",login);
+                user = (User) query.uniqueResult();
             }catch (NoResultException e){
-                loginUser = null;
+                user = null;
             }
         } catch (HibernateException e) {
-            System.out.println("User does not exist!");
+            ErrorMessages.setAndThrowMessage("User Does Not Exists!");
         }
-        return loginUser;
+        return user;
     }
+
+    public static Worker getWorkerByID(String workerID) throws NoResultException{
+        Worker worker = null;
+        try(Session session = HibConfig.getOpenSession()){
+            try{
+                worker = (Worker) session.get(Worker.class,workerID);
+                Hibernate.initialize(worker);
+            }catch (NoResultException e){
+                System.out.println("Worker is null!");
+                worker = null;
+            }
+        }catch (HibernateException e){
+            ErrorMessages.setAndThrowMessage("User does not exists!");
+        } catch (NullPointerException e){
+            e.printStackTrace();
+            ErrorMessages.setAndThrowMessage("Unable to resolve query!");
+        }
+        return worker;
+    }
+
+    public static void getReceiptByID(int id){
+
+
+    }
+
+    public static void getMagazineProductByID(){
+
+    }
+
+    public static void getCashRegisterByID(){
+
+    }
+
 }

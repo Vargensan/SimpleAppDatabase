@@ -1,7 +1,6 @@
 package logic;
 
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -18,35 +17,56 @@ public class ChangeRoot {
     public ChangeRoot(){
     }
 
+    /*
+     * Always with root privilages
+     */
     public static void login(){
-        try {
-            replaceSceneContent(DatabaseApplication.getStage(),"/dbLogin.fxml");
-            DatabaseApplication.getStage().show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        DBApp.instance().getDatabase().initalizeHibernateConfig();
+        updateView(ViewInstance.LOGIN);
     }
 
-    public static void changeView(ViewInstance viewInstance){
+    /**
+     * Without root privilages -> check user privilages and then perform action
+     *
+     */
+    private static void changeView(ViewInstance viewInstance){
         try {
-            replaceSceneContent(DatabaseApplication.getStage(),viewInstance.layoutName().getFileName());
+            String filename = viewInstance.layoutName().getFileName();
+            System.out.println(filename);
+            replaceSceneContent(viewInstance);
         } catch (Exception e) {
-            GuiUtils.alert(Alert.AlertType.ERROR,"Error","Occured",e.getMessage());
+            //e.printStackTrace();
+            GuiUtils.alert(Alert.AlertType.ERROR,"Error","Unable To Change Layout",e.getMessage());
         }
     }
 
     public static void changeLayoutLevelAccess(ViewInstance viewInstance){
         int accesLevel = AcessLevel.getAccessLevel();
+
         //TODO: set Access Level Deppending on User Privillages
-        changeView(viewInstance);
+        ChangeRoot.changeView(viewInstance);
 
     }
 
 
-    private static Parent replaceSceneContent(Stage stage, String fxml) throws Exception {
+    private static void updateView(ViewInstance viewInstance){
+        try{
+            replaceSceneContent(viewInstance);
+            DBApp.instance().getActualController().initializeListeners();
+            DBApp.instance().getStage().show();
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Error!");
+        }
+    }
+
+    private static Parent replaceSceneContent(ViewInstance viewInstance) throws Exception {
+        Stage stage = DBApp.instance().getStage();
+        FXMLLoader fxmlLoader = new FXMLLoader(DBApp.class.getResource(viewInstance.layoutName().getFileName()));
         Parent page;
         try {
-            page = (Parent) FXMLLoader.load(DatabaseApplication.class.getResource(fxml), null, new JavaFXBuilderFactory());
+            page = fxmlLoader.load();
+            DBApp.instance().setActualController(fxmlLoader.getController());
         }catch (NullPointerException e){
             throw new NullPointerException();
         }

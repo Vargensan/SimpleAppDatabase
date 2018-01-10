@@ -10,28 +10,21 @@ import java.io.Serializable;
 /**
  * Created By Bartłomiej Woś
  */
-public class LoginUser implements Serializable{
+public class User implements Serializable{
 
     private IntegerProperty id;
     private IntegerProperty accessLevel;
     private StringProperty userName;
     private StringProperty userPassword;
+    private Worker worker;
 
-    public LoginUser(){
+    public User(){
         id = new SimpleIntegerProperty();
         userName = new SimpleStringProperty();
         accessLevel = new SimpleIntegerProperty();
         userPassword = new SimpleStringProperty();
     }
-    public LoginUser(String username, String userpassword){
-        id = new SimpleIntegerProperty();
-        userName = new SimpleStringProperty();
-        accessLevel = new SimpleIntegerProperty();
-        userPassword = new SimpleStringProperty();
-        setAccessLevel(1);
-        setUserName(username);
-        setUserPassword(userpassword);
-    }
+
 
     public int getAccessLevel() {
         return accessLevel.get();
@@ -79,5 +72,13 @@ public class LoginUser implements Serializable{
 
     public void setUserPassword(String userPassword) {
         this.userPassword.set(userPassword);
+    }
+
+    public Worker getWorker() {
+        return worker;
+    }
+
+    public void setWorker(Worker worker) {
+        this.worker = worker;
     }
 }

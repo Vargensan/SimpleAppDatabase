@@ -12,7 +12,15 @@
         <property name="hibernate.connection.password">1q2w3e4r5t6y</property>
         <property name="hibernate.show_sql">true</property>
 
-        <mapping resource="/data/mappedClasses/LoginUser.hbm.xml"/>
+        <mapping resource="/data/mappedClasses/Users.hbm.xml"/>
+        <mapping resource="/data/mappedClasses/Product.hbm.xml"/>
+        <mapping resource="/data/mappedClasses/Receipt.hbm.xml"/>
+        <mapping resource="/data/mappedClasses/CashRegister.hbm.xml"/>
+        <mapping resource="/data/mappedClasses/Worker.hbm.xml"/>
+        <mapping resource="/data/mappedClasses/Magazine.hbm.xml"/>
+        <mapping resource="/data/mappedClasses/ReceiptProductDetails.hbm.xml"/>
+        <mapping resource="/data/mappedClasses/ReceiptDetails.hbm.xml"/>
+
     </session-factory>
 
 </hibernate-configuration>

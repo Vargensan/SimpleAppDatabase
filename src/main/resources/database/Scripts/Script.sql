@@ -54,6 +54,7 @@ CREATE PROCEDURE createAllTables()
   uniqueID INT UNSIGNED PRIMARY KEY ,
   paragonID INT UNSIGNED UNIQUE,
   dateFormat DATE,
+  canceled BOOL DEFAULT FALSE,
   FOREIGN KEY (paragonID) REFERENCES Receipt(paragonID)
 );
     CREATE TABLE ReceiptProductDetails(

@@ -4,6 +4,7 @@ import data.model.User;
 import logic.ctrl.Error.ErrorMessages;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.rmi.NoSuchObjectException;
@@ -83,6 +84,15 @@ public final class HibConfig {
             return session.getTransaction().isActive();
         }
         return false;
+    }
+
+    public static Transaction getTransiction(Session session){
+        if(session != null){
+            return session.getTransaction();
+        }
+        session = getOpenSession();
+        //ErrorMessages.setAndThrowMessage("Session is down!");
+        return session.getTransaction();
     }
 
     public static Session getOpenSession(){

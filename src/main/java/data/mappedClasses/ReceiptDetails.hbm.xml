@@ -12,6 +12,9 @@
         <property name="dateFormat" type="java.util.Date">
             <column name="dateFormat"/>
         </property>
+        <property name="canceled" type="java.lang.Boolean">
+            <column name="canceled"/>
+        </property>
 
         <many-to-one name="receipt" class="data.model.Receipt"
                      column="paragonID" unique="true" not-null="true" cascade="all"/>

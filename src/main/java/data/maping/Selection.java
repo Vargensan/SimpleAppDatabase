@@ -1,5 +1,6 @@
 package data.maping;
 
+import data.model.Receipt;
 import data.model.User;
 import data.config.HibConfig;
 import data.model.Worker;
@@ -60,7 +61,7 @@ public class Selection {
                 worker = (Worker) session.get(Worker.class,workerID);
                 Hibernate.initialize(worker);
             }catch (NoResultException e){
-                System.out.println("Worker is null!");
+                ErrorMessages.setAndThrowMessage("Worker is null!");
                 worker = null;
             }
         }catch (HibernateException e){
@@ -72,10 +73,25 @@ public class Selection {
         return worker;
     }
 
-    public static void getReceiptByID(int id){
-
-
+    public static Receipt getReceiptByID(int ID){
+        Receipt receipt = null;
+        try(Session session = HibConfig.getOpenSession()){
+            try{
+               receipt = session.get(Receipt.class,ID);
+               Hibernate.initialize(receipt);
+            }catch (HibernateException e){
+                ErrorMessages.setAndThrowMessage("Receipt is null!");
+                receipt = null;
+            }
+        }catch (HibernateException e){
+            ErrorMessages.setAndThrowMessage("Receipt does not exist!");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            ErrorMessages.setAndThrowMessage("Unable to resolve query!");
+        }
+        return receipt;
     }
+
 
     public static void getMagazineProductByID(){
 

@@ -14,6 +14,7 @@
         <many-to-one name="receipt" class="data.model.Receipt"
                      column="paragonID"/>
 
+
     </class>
 
 </hibernate-mapping>
